@@ -1,13 +1,11 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        mp1 = {}
-        mp2= {}
-        for i,j in zip(s,t):
-            if i in mp1 and mp1[i] != j:
+        sl = [0]*200
+        tl = [0]*200
+        for i in range(len(s)):
+            if sl[ord(s[i])] != tl[ord(t[i])]:
                 return False
-            if j in mp2 and mp2[j] != i:
-                return False
-            mp1[i] = j
-            mp2[j] = i
-        return True 
+            sl[ord(s[i])] = i+1
+            tl[ord(t[i])] = i+1
+        return True
 
