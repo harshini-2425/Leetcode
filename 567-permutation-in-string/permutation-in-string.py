@@ -1,19 +1,15 @@
-from collections import Counter
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        if len(s1) > len(s2):
-            return False
-        s1_count = Counter(s1)
-        k = len(s1)
-        window_count = Counter(s2[:k])
-        if s1_count == window_count:
-            return True
-        for i in range(k,len(s2)):
-            window_count[s2[i]] += 1
-            left = s2[i-k]
-            window_count[left] -= 1
-            if window_count[left] == 0:
-                del window_count[left]
-            if window_count == s1_count:
-                return True
+        n1, n2=len(s1), len(s2)
+        if n2<n1: return False
+        freq1, freq2 = Counter(s1), Counter(s2[0:n1])
+        if freq1==freq2: return True
+        l,  r = 1, n1
+        while r<n2:
+            freq2[s2[l-1]]-=1
+            freq2[s2[r]]+=1
+            if freq1==freq2: return True
+            r+=1
+            l+=1
         return False
+        
